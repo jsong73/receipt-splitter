@@ -73,19 +73,27 @@ def get_guest_receipt():
             print('Welcome to Hoshi\'s Diner!')
 
             if guest_selection in receipts:
-               guest_receipt = receipts[guest_selection]
-               
-               
-               for category, item in guest_receipt.items():
-                for item1, price in item.items():
-                    print(f'{category}:')
-                    print(f'{item1}: {price}')                
+                guest_receipt = receipts[guest_selection]
+                total = 0  
+
+
+                for category, items in guest_receipt.items():
+                    for item_name, price in items.items():
+                        num_item_spaces = 45 - len(item_name)
+                        item_spaces = " " * num_item_spaces
+                        print(f'{item_name}{item_spaces}{price:.2f}')
+                        total += price 
+                print('-' * 50)
+                sales_tax_rate= .04
+                sales_tax = total * sales_tax_rate
+                grand_total = total + sales_tax
+                print(f'{item_spaces} Subtotal: {total:.2f}')
+                print(f'{item_spaces} Sales Tax (4%): {sales_tax:.2f}')
+                print(f'{item_spaces} Grand Total: {grand_total:.2f}')
+                print(f'{item_spaces} Thank you and please come visit us again!')
+                print(f'                                            ')
             else: 
                 print(f'Cannot find {guest_selection}\'s receipt')
-
-              
-
-
         else:
             print(f'{guest_confirmation} is not a valid option')
     else:
@@ -99,10 +107,15 @@ while True:
     
     match(checkout_question.lower().strip()):
         case "y":
-            get_guest()
-            guest_confirmation = input("Sounds good! Which guest are you? Select a number. ")
-            get_guest_receipt()
-            break;
+                get_guest()
+                guest_confirmation = input("Sounds good! Which guest are you? Select a number. ")
+                get_guest_receipt()
+            
+                repeat_prompt = input('Would you like checkout another receipt? (Y/N) ')
+                print('                                                       ')
+                if repeat_prompt.lower().strip() != "y":
+                    print('Goodbye! ')
+                    break;
         case "n":
             print("Got it! Let us know whenever you're ready to checkout!")
             break

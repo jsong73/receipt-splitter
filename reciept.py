@@ -66,10 +66,24 @@ def get_guest_receipt():
     if guest_confirmation.isdigit():
         if int(guest_confirmation) in guest_order.keys():
             guest_selection = guest_order[int(guest_confirmation)]
+
             print(f'You selected {guest_selection}\'s check.')
             print(f'Processing the check for you now....')
+            print('-' * 50)
+            print('Welcome to Hoshi\'s Diner!')
 
-            
+            if guest_selection in receipts:
+               guest_receipt = receipts[guest_selection]
+               
+               
+               for category, item in guest_receipt.items():
+                for item1, price in item.items():
+                    print(f'{category}:')
+                    print(f'{item1}: {price}')                
+            else: 
+                print(f'Cannot find {guest_selection}\'s receipt')
+
+              
 
 
         else:

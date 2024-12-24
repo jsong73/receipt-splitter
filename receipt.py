@@ -63,6 +63,7 @@ def get_guest():
         i += 1
 
 def get_guest_receipt():
+    
     if guest_confirmation.isdigit():
         if int(guest_confirmation) in guest_order.keys():
             guest_selection = guest_order[int(guest_confirmation)]
@@ -77,7 +78,7 @@ def get_guest_receipt():
                 total = 0  
 
 
-                for category, items in guest_receipt.items():
+                for _, items in guest_receipt.items():
                     for item_name, price in items.items():
                         num_item_spaces = 45 - len(item_name)
                         item_spaces = " " * num_item_spaces
@@ -98,7 +99,6 @@ def get_guest_receipt():
             print(f'{guest_confirmation} is not a valid option')
     else:
         print("You didn't select a number. ")
-
 
 
 while True:
